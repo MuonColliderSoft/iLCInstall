@@ -52,7 +52,10 @@ from slicpandora import SlicPandora
 #aida
 from dd4hep import DD4hep 
 from dd4hep_examples import DD4hepExamples
- 
+
+# ACTS
+from acts import ACTS
+
 from lcgeo import lcgeo
 from podio import podio
 from edm4hep import edm4hep
