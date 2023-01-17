@@ -89,7 +89,7 @@ class Marlin(BaseILC):
         else:
             checked.append( self.name )
 
-        if self.env or sum(map(len, self.envpath.values()), 0):
+        if self.env or sum(list(map(len, list(self.envpath.values()))), 0):
             f.write( 2*os.linesep + "#" + 80*'-' + os.linesep + "#" + 5*' ' \
                     + self.name + os.linesep + "#" + 80*'-' + os.linesep )
         
@@ -97,7 +97,7 @@ class Marlin(BaseILC):
         for k in self.envorder:
             f.write( "export " + str(k) + "=\"" + str(self.env[k]) + "\"" + os.linesep )
         # then write the rest
-        for k, v in self.env.iteritems():
+        for k, v in self.env.items():
             if k not in self.envorder:
                 f.write( "export " + str(k) + "=\"" + str(self.env[k]) + "\"" + os.linesep )
     
@@ -108,11 +108,11 @@ class Marlin(BaseILC):
         # list of "trivial" paths we do not want to add again to PATH and co
         ignorepaths = ['/usr/bin','/usr/lib','/sbin','/usr/sbin']
         # path environment variables
-        for k, v in self.envpath.iteritems():
+        for k, v in self.envpath.items():
             if( len(v) != 0 ):
                 # expand every variable we introduced previously
                 exp = str().join(v)
-                for e, ev in self.env.iteritems():
+                for e, ev in self.env.items():
                     p = re.compile(r"\$"+str(e)) # compile regular expression to match shell variable
                     exp = p.sub(str(ev), exp)  # replace with expanded variable for absolute path
                 # check for match
