@@ -10,7 +10,7 @@
 # custom imports
 from .baseilc import BaseILC
 from .util import *
-
+import re
 
 class Marlin(BaseILC):
     """ Responsible for the Marlin software installation process. """
