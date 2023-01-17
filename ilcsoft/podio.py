@@ -8,8 +8,8 @@
 ##################################################
 
 # custom imports
-from baseilc import BaseILC
-from util import *
+from .baseilc import BaseILC
+from .util import *
 
 
 class podio(BaseILC):
@@ -24,7 +24,9 @@ class podio(BaseILC):
         self.download.gituser = 'AIDASoft'
         self.download.gitrepo = 'podio'
 
-        self.reqfiles = [ ["install/lib/libpodio.so", "install/lib/libpodio.dylib" ]]
+        self.reqfiles = [["install/lib/libpodio.so",
+                          "install/lib64/libpodio.so",
+                          "install/lib/libpodio.dylib"]]
 
         self.reqmodules = [ "ROOT" ]
         self.optmodules = [ "SIO" ]
@@ -63,4 +65,7 @@ class podio(BaseILC):
     def postCheckDeps(self):
         BaseILC.postCheckDeps(self)
 
-        self.env[ 'podio_DIR' ] = self.installPath + "/install/lib/cmake/podio"
+        self.env['podio_DIR'] = self.installPath + "/install"
+        self.envpath["LD_LIBRARY_PATH"].append("$podio_DIR/lib")
+        self.envpath["LD_LIBRARY_PATH"].append("$podio_DIR/lib64")
+        self.envpath["PYTHONPATH"].append("$podio_DIR/python")

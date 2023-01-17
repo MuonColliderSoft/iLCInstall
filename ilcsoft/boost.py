@@ -10,8 +10,8 @@
 ##################################################
 
 # custom imports
-from baseilc import BaseILC
-from util import *
+from .baseilc import BaseILC
+from .util import *
 
 
 class Boost(BaseILC):
@@ -36,7 +36,7 @@ class Boost(BaseILC):
 
     def genBuildOpts(self):
         opts = ""
-        for k, v in self.buildopts.iteritems():
+        for k, v in self.buildopts.items():
             opts = opts + k + "=" + str(v).strip() + " "
         return opts
 
@@ -44,9 +44,16 @@ class Boost(BaseILC):
         BaseILC.setMode(self, mode)
 
         if( self.mode == "install" ):
-            if( Version( self.version ) > "1.63.0" ):
+            if( Version( self.version ) > "1.76.0" ):
+                # Example: https://boostorg.jfrog.io/artifactory/main/release/1.77.0/source/boost_1_77_0.tar.gz
+                self.download.url = "https://boostorg.jfrog.io/artifactory/main/release/%s/source/boost_%s.tar.gz" % (self.version, self.version.replace( "." , "_" ) )
+            elif( Version( self.version ) > "1.70.0" ):
+                # https://boostorg.jfrog.io/artifactory/main/release/1.71.0/source/boost_1_71_0.tar.gz
+                self.download.url = "https://boostorg.jfrog.io/artifactory/main/release/%s/source/boost_%s.tar.gz" % (self.version, self.version.replace( "." , "_" ) )
+            elif( Version( self.version ) > "1.63.0" ):
                 # Example: https://dl.bintray.com/boostorg/release/1.71.0/source/boost_1_71_0.tar.gz
                 self.download.url = "https://dl.bintray.com/boostorg/release/%s/source/boost_%s.tar.gz" % (self.version, self.version.replace( "." , "_" ) )
+
             else:
                 # Example: https://sourceforge.net/projects/boost/files/boost/1.63.0/boost_1_63_0.tar.gz
                 self.download.url = "https://sourceforge.net/projects/boost/files/boost/%s/boost_%s.tar.gz" % (self.version, self.version.replace( "." , "_" ) )

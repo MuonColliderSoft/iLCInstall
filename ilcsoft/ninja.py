@@ -8,8 +8,8 @@
 ##################################################
 
 # custom imports
-from baseilc import BaseILC
-from util import *
+from .baseilc import BaseILC
+from .util import *
 
 
 class ninja(BaseILC):
@@ -54,7 +54,7 @@ class ninja(BaseILC):
     def cleanupInstall(self):
         BaseILC.cleanupInstall(self)
         os.chdir( self.installPath )
-        os_system( "find . \! -name 'ninja' -delete" )
+        os_system( r"find . \! -name 'ninja' -delete" )
 
     def postCheckDeps(self):
         BaseILC.postCheckDeps(self)

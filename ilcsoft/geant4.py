@@ -8,8 +8,8 @@
 ##################################################
                                                                                                                                                             
 # custom imports
-from baseilc import BaseILC
-from util import *
+from .baseilc import BaseILC
+from .util import *
 
 
 class Geant4(BaseILC):
@@ -84,9 +84,11 @@ class Geant4(BaseILC):
         if( self.mode == "install" ):
             if( Version( self.version ) < "9.5" ):
                 self.abort( "ilcinstall only supports installation of Geant4 9.5 or greater!" )
-
             # download url
-            self.download.url = "http://cern.ch/geant4-data/releases/geant4.%s.tar.gz" % self.version
+            elif( Version( self.version ) < "11.0" ):
+                self.download.url = "http://cern.ch/geant4-data/releases/geant4.%s.tar.gz" % self.version
+            else:
+                self.download.url = "http://cern.ch/geant4-data/releases/geant4-v%s.tar.gz" % self.version
 
         v = Version( self.version )
         if( len(v)==2):
@@ -126,7 +128,7 @@ class Geant4(BaseILC):
 
             if self.cmakeBoolOptionIsSet( "GEANT4_USE_SYSTEM_CLHEP" ):
 
-                if not self.envcmake.has_key('CLHEP_ROOT_DIR'):
+                if 'CLHEP_ROOT_DIR' not in self.envcmake:
 
                     self.addExternalDependency( ["CLHEP"] )
 
@@ -138,7 +140,7 @@ class Geant4(BaseILC):
 
             if self.cmakeBoolOptionIsSet( "GEANT4_USE_QT" ):
 
-                if not self.envcmake.has_key('QT_QMAKE_EXECUTABLE'):
+                if 'QT_QMAKE_EXECUTABLE' not in self.envcmake:
 
                     self.addExternalDependency( ["Qt5"] )
 
@@ -173,7 +175,7 @@ class Geant4(BaseILC):
             #        self.abort( "XERCESC_LIBRARY points to an invalid location: " + self.envcmake["XERCESC_LIBRARY"] )
 
 
-            if self.envcmake.has_key( "XERCESC_ROOT_DIR" ):
+            if "XERCESC_ROOT_DIR" in self.envcmake:
                 import platform
                 if platform.architecture()[0] == '64bit':
                     self.envpath["LD_LIBRARY_PATH"].append( self.envcmake[ "XERCESC_ROOT_DIR" ] + "/lib64" )
