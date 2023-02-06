@@ -11,6 +11,8 @@
 from baseilc import BaseILC
 from util import *
 
+import os.path
+
 class ACTS(BaseILC):
     """ Responsible for the ACTS installation process. """
     
@@ -50,6 +52,11 @@ class ACTS(BaseILC):
 
         if( os_system( "make install" ) != 0 ):
             self.abort( "failed to install!!" )
+
+        patch_cmd = "sed -i -e 's|Boost 1.75.0 CONFIG EXACT|Boost 1.75.0 EXACT|g' %s"
+        file_to_patch = os.path.join(self.installPath, 'lib64', 'cmake', 'Acts', 'ActsConfig.cmake')
+        if( os_system(patch_cmd % file_to_patch) != 0 ):
+            print("Cannot patch file %s" % file_to_patch)
 
     def writeEnv(self, f, checked):
         if( self.name in checked ):
