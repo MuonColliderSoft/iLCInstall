@@ -1,0 +1,24 @@
+name: build
+
+on: [push, pull_request]
+
+jobs:
+  python-unittest:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        py_version: ['2.7.x', '3.7']
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.py_version }}
+    - name: Install requirements
+      run: pip install -r ${GITHUB_WORKSPACE}/.github/scripts/requirements.txt
+    - name: Run python unit tests
+      run: |
+        export PYTHONPATH=${GITHUB_WORKSPACE}:${PYTHONPATH}
+        echo $PYTHONPATH
+        export PYTEST_ADDOPTS=$PYTEST_ADDOPTS" -m 'not integration'"
+        py.test

@@ -8,8 +8,8 @@
 ##################################################
 
 # custom imports
-from baseilc import BaseILC
-from util import *
+from .baseilc import BaseILC
+from .util import *
 
 
 class edm4hep(BaseILC):
@@ -24,7 +24,9 @@ class edm4hep(BaseILC):
         self.download.gituser = 'key4hep'
         self.download.gitrepo = 'edm4hep'
 
-        self.reqfiles = [ ["install/lib/libedm4hep.so", "install/lib/libedm4hep.dylib" ]]
+        self.reqfiles = [["install/lib/libedm4hep.so",
+                          "install/lib64/libedm4hep.so",
+                          "install/lib/libedm4hep.dylib"]]
 
         self.reqmodules = [ "podio" ]
 #        self.optmodules = [ "SIO" ]
@@ -63,4 +65,6 @@ class edm4hep(BaseILC):
     def postCheckDeps(self):
         BaseILC.postCheckDeps(self)
 
-        self.env[ 'edm4hep_DIR' ] = self.installPath + "/install/lib/cmake/EDM4HEP"
+        self.env['EDM4HEP_DIR'] = self.installPath + "/install"
+        self.envpath["LD_LIBRARY_PATH"].append("$EDM4HEP_DIR/lib")
+        self.envpath["LD_LIBRARY_PATH"].append("$EDM4HEP_DIR/lib64")

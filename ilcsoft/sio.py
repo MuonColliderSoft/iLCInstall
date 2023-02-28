@@ -8,8 +8,8 @@
 ##################################################
                                                                                                                                                             
 # custom imports
-from baseilc import BaseILC
-from util import *
+from .baseilc import BaseILC
+from .util import *
 
 
 class SIO(BaseILC):
@@ -60,4 +60,4 @@ class SIO(BaseILC):
         if self.installPath != "/usr":
             self.envpath["PATH"].append( "$SIO_DIR/bin" )
             self.envpath["LD_LIBRARY_PATH"].append( "$SIO_DIR/lib" )
-
+            self.envpath["LD_LIBRARY_PATH"].append( "$SIO_DIR/lib64" )

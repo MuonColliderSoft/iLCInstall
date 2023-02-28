@@ -7,7 +7,6 @@ iLCInstall is distributed under the [GPLv3 License](http://www.gnu.org/licenses/
 [![License](https://www.gnu.org/graphics/gplv3-127x51.png)](https://www.gnu.org/licenses/gpl-3.0.en.html)
 
 [![Build Status](https://travis-ci.org/iLCSoft/iLCInstall.svg?branch=master)](https://travis-ci.org/iLCSoft/iLCInstall)
-[![Coverage Status](https://coveralls.io/repos/github/iLCSoft/iLCInstall/badge.svg?branch=master)](https://coveralls.io/github/iLCSoft/iLCInstall?branch=master)
 
 ## Usage
 
@@ -29,7 +28,7 @@ If called without options a summary of the installation is displayed. Examples o
 
 ### Install the full ilc software tools + external dependencies on your local disk 
 
-* note that boost, mysql, java and cernlib installations are not supported in ilcinstall
+* note that mysql and java and installations are not supported in ilcinstall
 *  this packages need to be installed on your system. Please change the paths to this packages in
 * the file releases/v01-17-07/release-versions.py
 

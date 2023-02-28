@@ -8,8 +8,9 @@
 ##################################################
                                                                                                                                                             
 # custom imports
-from baseilc import BaseILC
-from util import *
+import os
+from .baseilc import BaseILC
+from .util import *
 
 
 class ROOT(BaseILC):
@@ -46,6 +47,15 @@ class ROOT(BaseILC):
 
     def init(self):
         BaseILC.init(self)
+
+        if Version(self.version) <= '6.19':
+            # See: https://root-forum.cern.ch/t/problems-building-root-6-18-04-with-builtin-davix/44225
+            self.download.supportedTypes = ['Github']
+            self.download.gituser = 'root-project'
+            self.download.gitrepo = 'root'
+            self.download.branch = 'v6-18-00-patches'
+            self.download.type = 'GitHub'
+
 
         if( Version( self.version ) == 'HEAD' and self.download.type[:3] != 'svn' ):
             self.download.type="svn-export"
@@ -121,6 +131,14 @@ class ROOT(BaseILC):
             self.abort( "failed to install!!" )
 
 
+
+        if self.version > "6.19.0":
+            # Need to symlink two cmake scripts that are not installed properly
+            # otherwise and would break packages that depend on ROOT
+            for mod in ['RootMacros.cmake', 'RootTestDriver.cmake']:
+                link_path = os.path.join(self.installPath, 'cmake', mod)
+                src = os.path.join(self.installPath, 'cmake', 'modules', mod)
+                os.symlink(src, link_path)
 
     def postCheckDeps(self):
         BaseILC.postCheckDeps(self)
