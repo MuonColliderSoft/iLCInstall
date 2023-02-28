@@ -7,7 +7,7 @@ import logging
 from ilcsoft import *
 from util import getoutput
 
-_version = "v01-17-07"
+_version = "v02-08-MC"
 
 _usage = """%prog [options] INSTALL_CONFIG_FILE
 if called with no options only an installation summary is shown
