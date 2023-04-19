@@ -25,6 +25,6 @@ class MuonCVXDDigitiser(MarlinPKG):
         BaseILC.postCheckDeps(self)
 
         # fill MARLIN_DLL
-        self.parent.module('Marlin').envpath["MARLIN_DLL"].append(self.installPath + "lib/libMuonCVXDDigitiser.so")
-        self.parent.module('Marlin').envpath["MARLIN_DLL"].append(self.installPath + "lib/libMuonCVXDRealDigitiser.so")
+        self.parent.module('Marlin').envpath["MARLIN_DLL"].append(self.installPath + "/lib/libMuonCVXDDigitiser.so")
+        self.parent.module('Marlin').envpath["MARLIN_DLL"].append(self.installPath + "/lib/libMuonCVXDRealDigitiser.so")
 
