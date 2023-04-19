@@ -10,16 +10,16 @@
 from .baseilc import BaseILC
 from .marlinpkg import MarlinPKG
 
-class Digitizer(MarlinPKG):
-    """ Responsible for the Digitizer installation process. """
+class MuonCVXDDigitiser(MarlinPKG):
+    """ Responsible for the MuonCVXDDigitiser installation process. """
 
     def __init__(self, userInput):
-        MarlinPKG.__init__(self, "Digitizer", userInput )
+        MarlinPKG.__init__(self, "MuonCVXDDigitiser", userInput )
 
         self.hasCMakeFindSupport = True
 
         # required modules
-        self.reqmodules = [ "Marlin", "MarlinUtil", "GSL", "DD4hep", "RAIDA" ]
+        self.reqmodules = [ "Marlin", "MarlinUtil", "DD4hep", "RAIDA" ]
 
     def postCheckDeps(self):
         BaseILC.postCheckDeps(self)

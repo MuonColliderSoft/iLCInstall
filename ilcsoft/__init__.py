@@ -41,7 +41,7 @@ from .fastjet import FastJet, FastJetClustering
 from .marlintrk import MarlinTrk
 from .kitrack import KiTrack, KiTrackMarlin
 from .detectorsimulation import DetectorSimulation
-from .digitizer import Digitizer
+from .digitizer import MuonCVXDDigitiser
 
 #slic et al
 from .gdml import GDML
